@@ -3,12 +3,9 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
-  Text,
-  TextInput
+  Text
 } from 'react-native'
-import {Picker} from '@react-native-picker/picker';
 import { useDispatch, useSelector } from 'react-redux'
-import { getLeaderBoard } from '../store/actions'
 import Header from '../components/Header'
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -17,12 +14,6 @@ export default function Leaderboard ({ route, navigation }) {
   const leaderBoard = useSelector(state => state.leaderboard.array)
   const username = route.params.name
   const score = route.params.score
-
-  // useEffect(() => {
-  //   dispatch(getLeaderBoard())
-  // }, [])
-
-  console.log(leaderBoard, 'leaderboard')
 
   return (
     <SafeAreaView style={styles.container}>
@@ -34,7 +25,7 @@ export default function Leaderboard ({ route, navigation }) {
         { leaderBoard.length >= 3 ?
           leaderBoard.map((user, i) =>
             (
-              <View style={styles.cardLeaderboard}>
+              <View key={i} style={styles.cardLeaderboard}>
                 <View style={{flex: 1, marginRight: 30}} textAlign='center'>
                   <Text style={styles.text}>{i + 1}.</Text>
                 </View>

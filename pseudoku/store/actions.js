@@ -65,7 +65,6 @@ export function addLeaderBoard (payload) {
     try {
       let data = await AsyncStorage.getItem('storage_key')
       data = JSON.parse(data)
-      console.log(data, '<<dr add lead board')
       if(!data) data = []
       data.push(payload)
       await AsyncStorage.setItem('storage_key', JSON.stringify(data))
@@ -81,7 +80,6 @@ export function getLeaderBoard () {
     try {
       let data = await AsyncStorage.getItem('storage_key')
       data = JSON.parse(data).sort((a, b) => b.score - a.score)
-      console.log(data, 'dari action leader')
       const newArr = []
       for (let i = 0; i < 3; i++) {
         newArr.push(data[i])
