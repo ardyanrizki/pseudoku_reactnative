@@ -31,9 +31,9 @@ export default function Leaderboard ({ route, navigation }) {
         <Text style={styles.headerText}>Leaderboard</Text>
       </View>
       <View style={styles.cardContainer}>
-        { leaderBoard.length > 0 ?
-          leaderBoard.map((user, i) => {
-            return (
+        { leaderBoard.length >= 3 ?
+          leaderBoard.map((user, i) =>
+            (
               <View style={styles.cardLeaderboard}>
                 <View style={{flex: 1, marginRight: 30}} textAlign='center'>
                   <Text style={styles.text}>{i + 1}.</Text>
@@ -46,7 +46,7 @@ export default function Leaderboard ({ route, navigation }) {
                 </View>
               </View>
             )
-          }) :
+          ) :
           <Text style={styles.text}>Empty leaderboard</Text>
         }
       </View>

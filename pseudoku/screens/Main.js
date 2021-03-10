@@ -112,7 +112,7 @@ export default function Main ({route, navigation}) {
             alert("Great! It's works")
             clearInterval(intervals)
             const user = { username, score }
-            addLeaderBoard(user)
+            dispatch(addLeaderBoard(user))
             navigation.navigate('Leaderboard', {name: username, score: score})
             break
           case 'broken':
