@@ -22,7 +22,7 @@ export default function Leaderboard ({ route, navigation }) {
         <Text style={styles.headerText}>Leaderboard</Text>
       </View>
       <View style={styles.cardContainer}>
-        { leaderBoard.length >= 3 ?
+        { leaderBoard.length > 0 ?
           leaderBoard.map((user, i) =>
             (
               <View key={i} style={styles.cardLeaderboard}>

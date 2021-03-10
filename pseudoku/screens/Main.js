@@ -106,7 +106,6 @@ export default function Main ({route, navigation}) {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data.status)
         switch(data.status) {
           case 'solved':
             alert("Great! It's works")
@@ -132,7 +131,7 @@ export default function Main ({route, navigation}) {
 
   if(countdown === '00 : 00') {
     alert("Time's up")
-    navigation.navigate('Leaderboard', {name: username, score: score})
+    navigation.navigate('Leaderboard', {name: username, score: 0})
     dispatch(setCountdown(''))
   }
 

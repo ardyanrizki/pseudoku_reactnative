@@ -80,11 +80,15 @@ export function getLeaderBoard () {
     try {
       let data = await AsyncStorage.getItem('storage_key')
       data = JSON.parse(data).sort((a, b) => b.score - a.score)
-      const newArr = []
-      for (let i = 0; i < 3; i++) {
-        newArr.push(data[i])
+      if(data.length > 3) {
+        const newArr = []
+        for (let i = 0; i < 3; i++) {
+          newArr.push(data[i])
+        }
+        dispatch(setLeaderBoard(newArr))
+      } else {
+        dispatch(setLeaderBoard(data))
       }
-      dispatch(setLeaderBoard(newArr))
     } catch (error) {
       console.log(error)
     }
