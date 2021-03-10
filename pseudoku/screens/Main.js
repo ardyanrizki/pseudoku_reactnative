@@ -10,6 +10,7 @@ import {
   Platform
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import { Audio } from 'expo-av'
 import { fetchGrid, setGrid, setGridSolver, setScore, addLeaderBoard } from '../store/actions'
 import Header from '../components/Header'
 import Row from '../components/Row'
@@ -29,6 +30,8 @@ export default function Main ({route, navigation}) {
 
   const [countdown, setCountdown] = useState('')
   const [intervals, setIntervals] = useState('')
+  const [sound, setSound] = useState('')
+  const [isIntro, setIsIntro] = useState(true)
 
   if(error) {
     alert(error)
@@ -40,8 +43,22 @@ export default function Main ({route, navigation}) {
     startCountdown(600)
   }, [dispatch])
 
+  useEffect(() => {
+    sound ? () => {
+      sound.unloadAsync()
+    }:
+    undefined
+  }, [sound])
+
+  if(!loading && isIntro) {
+    playSound()
+    setIsIntro(false)
+    setSound('')
+  }
+
   function startCountdown (seconds) {
     setCountdown('')
+    clearInterval(intervals)
     let intervals = setInterval(() => {
       let sec = seconds % 60
       let min = Math.floor(seconds / 60)
@@ -70,6 +87,14 @@ export default function Main ({route, navigation}) {
       })
     })
     dispatch(setGrid(mapped))
+  }
+
+  async function playSound() {
+    const { sound } = await Audio.Sound.createAsync(
+      require('../assets/intro.mp3')
+    )
+    setSound(sound)
+    await sound.playAsync()
   }
 
   const encodeBoard = (board) => board.reduce((result, row, i) => result + `%5B${encodeURIComponent(row)}%5D${i === board.length -1 ? '' : '%2C'}`, '')
@@ -109,6 +134,7 @@ export default function Main ({route, navigation}) {
         switch(data.status) {
           case 'solved':
             alert("Great! It's works")
+            playSound()
             clearInterval(intervals)
             const user = { username, score }
             dispatch(addLeaderBoard(user))

@@ -15,8 +15,16 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export default function Signup ({navigation}) {
   const dispatch = useDispatch()
   const level = useSelector(state => state.level.level)
-
   const [userName, setUserName] = useState('')
+
+  const playBtn = () => {
+    if(userName) {
+      navigation.push("Main", {name: userName})
+    } else {
+      alert('Sign your name first')
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <Header />
@@ -30,7 +38,7 @@ export default function Signup ({navigation}) {
         <Picker.Item label="Medium" value="Medium" />
         <Picker.Item label="Hard" value="Hard" />
       </Picker>
-      <TouchableOpacity onPress={() => navigation.push("Main", {name: userName})} style={styles.btnPrimary}>
+      <TouchableOpacity onPress={playBtn} style={styles.btnPrimary}>
         <Text style={styles.bigText}>Play</Text>
       </TouchableOpacity>
     </SafeAreaView>
