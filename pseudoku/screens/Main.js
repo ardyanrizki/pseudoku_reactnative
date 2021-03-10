@@ -118,7 +118,7 @@ export default function Main ({route, navigation}) {
             alert("You have to fix some number")
             break
           case 'unsolved':
-            alert("There's empty number?")
+            alert("There's an empty number?")
             break
           default:
             alert("It's not working")
@@ -153,7 +153,7 @@ export default function Main ({route, navigation}) {
             {grid.map((row, index) => (
               <Row style={{marginBottom: 50}} key={index} init={loading} index={index} row={row} inputChange={inputChange} />
             ))}
-            <View style={{marginTop: 70, width: '100%'}}>
+            <View style={{marginTop: 70, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
               <TouchableOpacity onPress={solver} style={styles.btnSecondary}>
                 <Text style={styles.bigTextWhite}>Give up</Text>
               </TouchableOpacity>
